@@ -232,7 +232,7 @@ module Split
 
       if Split.redis.exists(name)
         existing_alternatives = load_alternatives_for(name)
-        if existing_alternatives == alts.map(&:name)
+        if Set.new(existing_alternatives) == Set.new(alts.map(&:name))
           experiment = self.new(name, :alternative_names => alternatives)
         else
           exp = self.new(name, :alternative_names => existing_alternatives)
